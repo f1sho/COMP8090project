@@ -1,8 +1,18 @@
 import time
 import math
 
+# True  -> use simulated parking duration for demonstration
+# False -> use real elapsed time
+DEMO_MODE = True
+
+
 class ParkingTicket:
-    next_ticket_id = 1   # class attribute
+    """
+    A class to represent a parking ticket.
+    It stores the parked vehicle, allocated parking spot,
+    entry/exit time, parking duration in minutes, and final fee.
+    """
+    next_ticket_id = 1
 
     def __init__(self, vehicle, spot):
         self.ticket_id = ParkingTicket.next_ticket_id
@@ -12,49 +22,81 @@ class ParkingTicket:
         self.spot = spot
         self.entry_time = time.time()
         self.exit_time = None
-        self.fee = 0
+        self.duration_minutes = 0
+        self.fee = 0.0
 
     def close_ticket(self):
         self.exit_time = time.time()
 
-    def get_duration_hours(self):
-        if self.exit_time is None:
-            return 0
-        duration = self.exit_time - self.entry_time
-        return duration / 3600
+    def set_duration_minutes(self, minutes):
+        self.duration_minutes = minutes
 
     def set_fee(self, fee):
         self.fee = fee
 
     def __str__(self):
-        return f"Ticket {self.ticket_id} | {self.vehicle} | Fee: {self.fee}"
-    
+        return (
+            f"Ticket {self.ticket_id} | {self.vehicle} | "
+            f"Spot: {self.spot.spot_id} | "
+            f"Minutes: {self.duration_minutes} | Fee: {self.fee:.2f}"
+        )
+
 
 class FeeCalculator:
+    """
+    A helper class for fee calculation.
+    Charging is based on parking spot type.
+    """
 
     @staticmethod
-    def calculate_hours(entry_time, exit_time):
-        duration = exit_time - entry_time
-        hours = duration / 3600
-        return math.ceil(hours)
+    def generate_simulated_minutes():
+        """
+        Return a fixed simulated duration for demonstration.
+        This keeps the demo simple and avoids using real waiting time.
+        """
+        return 45
 
     @staticmethod
-    def calculate_fee(vehicle, entry_time, exit_time):
-        hours = FeeCalculator.calculate_hours(entry_time, exit_time)
-        return hours * vehicle.get_hourly_rate()
+    def calculate_real_minutes(entry_time, exit_time):
+        """
+        Calculate real parking duration in minutes.
+        At least 1 minute will be charged.
+        """
+        duration_seconds = exit_time - entry_time
+        return max(1, math.ceil(duration_seconds / 60))
 
+    @staticmethod
+    def calculate_fee_by_minutes(spot, minutes):
+        """
+        Calculate fee based on the parking spot rate per minute.
+        """
+        return minutes * spot.get_rate_per_minute()
 
-class PaymentRecord:
-    next_payment_id = 1
+    @staticmethod
+    def checkout(ticket):
+        """
+        Complete checkout:
+        - record exit time
+        - determine duration (demo or real mode)
+        - calculate fee based on spot type
+        - store results in the ticket
 
-    def __init__(self, ticket_id, amount, method="Cash"):
-        self.payment_id = PaymentRecord.next_payment_id
-        PaymentRecord.next_payment_id += 1
+        Returns:
+        - duration_minutes
+        - fee
+        """
+        ticket.close_ticket()
 
-        self.ticket_id = ticket_id
-        self.amount = amount
-        self.method = method
-        self.payment_time = time.time()
+        if DEMO_MODE:
+            duration_minutes = FeeCalculator.generate_simulated_minutes()
+        else:
+            duration_minutes = FeeCalculator.calculate_real_minutes(
+                ticket.entry_time, ticket.exit_time
+            )
 
-    def __str__(self):
-        return f"Payment {self.payment_id} | Ticket {self.ticket_id} | Amount: {self.amount}"
+        fee = FeeCalculator.calculate_fee_by_minutes(ticket.spot, duration_minutes)
+
+        ticket.set_duration_minutes(duration_minutes)
+        ticket.set_fee(fee)
+
+        return duration_minutes, fee
