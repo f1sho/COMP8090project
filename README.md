@@ -2,6 +2,8 @@
 
 ## Task 1 - OOP-based application development
 
+video: https://mailouhkedu-my.sharepoint.com/:v:/g/personal/s1410317_live_hkmu_edu_hk/IQDPmIJ7dyLtS7c2SacI8pZlAUDYTvZhDf1Q8X4AZbwcBf8?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=XRebx5
+
 ### Overview
 A smart parking system that manages parking lots, allocates parking spots, and calculates parking fees using object-oriented principles. The system integrates Dijkstra's algorithm to compute shortest paths from the entrance to parking spots.
 
@@ -105,6 +107,8 @@ Displays graphical representation of the parking lot with:
 ---
 
 ## Task 2 - Self Study Data Structure & Algorithm
+
+video: https://mailouhkedu-my.sharepoint.com/:v:/g/personal/s1410317_live_hkmu_edu_hk/IQAOKD-uVreFRZnDG2D1DovmAbpc6p52gRg-Nd-6R1I9UWk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=ZnzjQj
 
 ### Overview
 Implementation and testing of Dijkstra's shortest path algorithm to calculate shortest distances from the entrance to all parking lot locations. This is the core algorithm used in Task 1.
