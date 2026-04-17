@@ -26,11 +26,11 @@ class ParkingSpot(ABC):
         pass
 
     def occupy(self):
-        """Mark the parking spot as occupied."""
+        # Mark the parking spot as occupied.
         self.is_occupied = True
 
     def release(self):
-        """Mark the parking spot as available."""
+        # Mark the parking spot as available.
         self.is_occupied = False
 
     def get_rate_per_minute(self):
@@ -44,9 +44,7 @@ class ParkingSpot(ABC):
         return self.distance < other.distance
 
     def __str__(self):
-        """
-        Return a user-friendly string representation.
-        """
+        # Return a string representation of the parking spot for debugging.
         status = "Occupied" if self.is_occupied else "Available"
         return f"{self.__class__.__name__}(ID={self.spot_id}, Status={status}, Distance={self.distance})"
 

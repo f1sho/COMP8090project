@@ -88,9 +88,8 @@ class ParkingLotUI:
             "Lane_5": "Truck Row",
         }
 
-    # =========================================================
     # Helper methods
-    # =========================================================
+    
     def _get_spot_color(self, spot):
         if isinstance(spot, EVChargingSpot):
             return "#CDEAC0"
@@ -330,9 +329,8 @@ class ParkingLotUI:
             fill="red", outline="red"
         )
 
-    # =========================================================
-    # Public
-    # =========================================================
+    
+    # Public method to draw the entire layout
     def draw_layout(self, path=None, assigned_spot_id=None):
         self.canvas.delete("all")
         self.node_positions.clear()

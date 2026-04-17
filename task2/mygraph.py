@@ -88,9 +88,8 @@ class Graph:
         return self.nodes.get(name)
 
 
-# ==========================================
+
 # test
-# ==========================================
 if __name__ == "__main__":
     # 1. Initialize the Graph
     parking_lot = Graph()

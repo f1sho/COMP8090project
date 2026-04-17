@@ -115,10 +115,7 @@ def main():
             duration_minutes, fee = FeeCalculator.checkout(ticket)
 
             print("\n============== CHECKOUT RESULT ==============")
-            print("Vehicle:", ticket.vehicle)
-            print("Spot:", ticket.spot.spot_id)
-            print("Duration:", duration_minutes, "minute(s)")
-            print("Fee:", f"{fee:.2f}")
+            print(ticket)
             print("=============================================\n")
 
             parking_lot.release_spot(ticket.spot.spot_id)
